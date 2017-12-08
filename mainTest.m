@@ -1,5 +1,7 @@
 function  mainTest()
     im = imread('C:\Users\Guillaume\Desktop\Ecole\MPRI\projetmpri\db\apple-2.gif');
-    getSignature(50, 50, im);
+    coord = getBarycentre(im);
+    coord(1, 1)
+    getSignature(coord(1), coord(2), im);
 end
 
