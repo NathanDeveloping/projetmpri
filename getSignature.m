@@ -3,7 +3,7 @@ function [r, teta] = getSignature(XCentre, YCentre, img)
     pointContourX = [];
     pointContourY = [];
     
-    for VTheta = 0:pi/10:2*pi % 0:10:360
+    for VTheta = 0:pi/15:2*pi % 0:10:360
         % VTheta = VThetaDeg *pi / 180;
         
         % Cherche le point du contour
