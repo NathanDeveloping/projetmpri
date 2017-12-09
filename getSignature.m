@@ -10,8 +10,10 @@ function [r, teta] = getSignature(XCentre, YCentre, img)
         i = 1;
         
         
-        while img(round(XCentre + i * cos(VTheta)), round(YCentre + i * sin(VTheta))) == 1
+        while ( round(XCentre + i * cos(VTheta)) < size(img, 1) && round(XCentre + i * cos(VTheta)) > 0 ) && ( round(YCentre + i * sin(VTheta)) < size(img, 2) && round(YCentre + i * sin(VTheta)) > 0 ) && ( img(round(XCentre + i * cos(VTheta)), round(YCentre + i * sin(VTheta))) == 1 )
             i = i + 5; % pas du deplacement sur la droite pour aller au contour
+            round(XCentre + i * cos(VTheta))
+            round(YCentre + i * sin(VTheta))
         end
         
         
