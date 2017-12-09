@@ -24,6 +24,6 @@ function [r, teta] = getSignature(XCentre, YCentre, img)
     
     %imshow(img);
     hold on;
-    plot(pointContourX, pointContourY, '*');
+    plot(pointContourX, pointContourY, 'g');
    
 end
