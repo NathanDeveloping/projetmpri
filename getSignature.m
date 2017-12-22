@@ -1,5 +1,5 @@
-function [r, teta] = getSignature(XCentre, YCentre, img)
-    
+function signature = getSignature(XCentre, YCentre, img)
+    signature = [];
     pointContourX = [];
     pointContourY = [];
     
@@ -12,14 +12,18 @@ function [r, teta] = getSignature(XCentre, YCentre, img)
         
         while ( round(XCentre + i * cos(VTheta)) < size(img, 1) && round(XCentre + i * cos(VTheta)) > 0 ) && ( round(YCentre + i * sin(VTheta)) < size(img, 2) && round(YCentre + i * sin(VTheta)) > 0 ) && ( img(round(XCentre + i * cos(VTheta)), round(YCentre + i * sin(VTheta))) == 1 )
             i = i + 5; % pas du deplacement sur la droite pour aller au contour
-            round(XCentre + i * cos(VTheta))
-            round(YCentre + i * sin(VTheta))
+            round(XCentre + i * cos(VTheta));
+            round(YCentre + i * sin(VTheta));
         end
         
+        X = XCentre + i * cos(VTheta);
+        Y = YCentre + i * sin(VTheta);
+        pointContourX(end+1) = X;
+        pointContourY(end+1) = Y;
         
-        pointContourX(end+1) = XCentre + i * cos(VTheta);
-        pointContourY(end+1) = YCentre + i * sin(VTheta);
-        
+        distance = sqrt((X - XCentre)^2 + (Y - YCentre)^2);
+        signature = [signature; distance];
+        angle = VTheta;
         
     end
     
