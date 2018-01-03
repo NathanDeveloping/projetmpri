@@ -1,8 +1,9 @@
-function [image, distance] = distancesEuclidiennes(query, descripteurs)
-       
-    for d = l:numel(descripteurs)
-        distEuclidienne(i,1) = norm(query - descripteurs(i,:));
-        
+function [image, distance] = distancesEuclidiennes(query, descripteurs, keyDescripteurs)
+    
+
+    for i = 1:size(descripteurs)
+        distance(i) = norm(query - descripteurs(i,:));
+        image(i) = keyDescripteurs(i);
     end
 
 end
