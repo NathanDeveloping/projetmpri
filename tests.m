@@ -21,43 +21,31 @@ function [recall, precision] = tests()
         disp(label_db{im}); 
         drawnow();
         disp(label_db{im});
-        descripteurs(im,:) = calculerDescripteur(img_db{im});
-        % stock le label des images
-        keyDescripteurs(im) = string(label_db{im});
-       
-        
+        descripteurs(im,:) = calculerDescripteur(img_db{im});       
     end
     
     for im = 1:numel(img_db_list);
+        
         % On récupère l'image
         imageQuery = logical(imread(img_db_list{im}));
+        
         % On récupère le label de l'image
         labelQuery = get_label(img_db_list{im});
+        
         % On calcule son descripteur
         descripteurQuery = calculerDescripteur(imageQuery);
+        
         % On calcule les distances euclidiennes de ce descripteur
         % avec tous les descripteurs de la base
-        [image, distance] = distancesEuclidiennes(descripteurQuery, descripteurs, keyDescripteurs);
+        [distances] = distancesEuclidiennes(descripteurQuery, descripteurs);
+        
         clc;
-        fprintf('\nTaille: %d', size(distance)) ;
-        %disp(distance);
-        %disp(image(2));
-        
-        C = vertcat(image, distance)
-        distance = sort(distance);
-        D = vertcat(image, distance)
-        
-        %C(1,2)
-        %D(1,2)
-        %C(2,:)
-        %C = sortrows(C, 2)
-        clc;
-        %C = [C(1,:); str2double(C(2,:))]
-        %C = sortrows(C, 2)
-        %C
-        
         % On trie les distances par ordre croissant
-        %distanceEuclidienne = sort(distanceEuclidienne);
+        % matrice contenant les distances avec l'indice
+        % de l'image associe
+        distances_sorted = sortrows(distances, 1)
+        
+       
         
         
 

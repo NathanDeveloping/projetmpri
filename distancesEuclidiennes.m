@@ -1,9 +1,11 @@
-function [image, distance] = distancesEuclidiennes(query, descripteurs, keyDescripteurs)
-    
+function [distances] = distancesEuclidiennes(query, descripteurs)
+    distances = [];
 
     for i = 1:size(descripteurs)
-        distance(i) = norm(query - descripteurs(i,:));
-        image(i) = keyDescripteurs(i);
+        current_distance = norm(query - descripteurs(i,:));
+        %indexImg(i) = i;
+        
+        distances = [distances ; [current_distance , i]];
     end
 
 end

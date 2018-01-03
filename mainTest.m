@@ -8,7 +8,7 @@ function  mainTest()
     signature = getSignature(x, y, im);
     afficherSignature(signature);
     hold off;
-    descripteur = getDescripteur(signature, 30)
+    descripteur = getDescripteur(signature, 30);
     
     
     hold on;
