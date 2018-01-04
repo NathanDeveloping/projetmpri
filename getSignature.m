@@ -30,5 +30,6 @@ function signature = getSignature(XCentre, YCentre, img)
     %imshow(img);
     hold on;
     plot(pointContourY, pointContourX, 'g');
+    hold off;
    
 end
