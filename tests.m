@@ -21,9 +21,10 @@ function [recall, precision] = tests()
     for im = 1:numel(img_db_list);
         img_db{im} = logical(imread(img_db_list{im}));
         label_db{im} = get_label(img_db_list{im});
-        clf;imshow(img_db{im});
+        clf;
+        %imshow(img_db{im});
         disp(label_db{im}); 
-        drawnow();
+        %drawnow();
         descripteurs(im,:) = calculerDescripteur(img_db{im});       
     end
     
@@ -51,22 +52,23 @@ function [recall, precision] = tests()
         % de l'image associe
         distances_sorted = sortrows(distances, 1);
         
-        
         % On parcours les 20 premieres images
         recall = [];
+        tested = [];
+        size(tested)
         somme = 0;
         for i = 1:19;
-            if strcmp(get_label(img_db_list{distances_sorted(i, 2)}), labelQuery)
+            disp(labelQuery)
+            disp(get_label(img_db_list{distances_sorted(i, 2)}))
+            if contains(get_label(img_db_list{distances_sorted(i, 2)}), labelQuery)
                 somme = somme +1;
                 recall = [recall ; [somme / i]];
             else
                 recall = [recall ; [somme / i]];
             end         
-            
+            tested(i,:) = distances_sorted(i, 2); 
         end
         
-        afficherRecall( recall, labelQuery, imageQuery );
-        
-
+        afficherRecallDetail(recall, labelQuery, imageQuery, tested, img_db);
     end
 end
