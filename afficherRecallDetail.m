@@ -6,9 +6,9 @@ function afficherRecallDetail(recall, title_im, imageQuery, tested, img_db)
     ylabel('precision in percentage %') % y-axis label
     xlabel('number of image /19') % x-axis label 
     
-    subplot(1,7,2); imshow(imageQuery); title('query: ');
+    subplot(1,7,2); imshow(imageQuery); afficherQuerySignee(imageQuery); title('query: ');
     for i = 1:5;
-        subplot(1,7,2+i), imshow(img_db{tested(i,:)});
+        subplot(1,7,2+i), imshow(img_db{tested(i)});
     end
     
     

@@ -3,6 +3,8 @@
 % et 19 est le nombre d'images Ã  retrouver pour chaque requÃªte
 
 function [recall, precision] = tests()
+    close all;
+    clc;
     img_db_path = './db/';
     img_dbq_path = './dbq/';
     img_db_list = glob([img_db_path, '*.gif']);
@@ -29,10 +31,10 @@ function [recall, precision] = tests()
     end
     
     
-    figure(); % affiche courbe recall dans nouvelle figure
+     % affiche courbe recall dans nouvelle figure
     % On parcours les images de dbq
     for imq = 1:numel(img_dbq_list);
-        
+        figure();
         % On récupère l'image
         imageQuery = logical(imread(img_dbq_list{imq}));
         
@@ -44,29 +46,25 @@ function [recall, precision] = tests()
         
         % On calcule les distances euclidiennes de ce descripteur
         % avec tous les descripteurs de la base
-        [distances] = distancesEuclidiennes(descripteurQuery, descripteurs);
+        distances = distancesEuclidiennes(descripteurQuery, descripteurs);
         
-        clc;
         % On trie les distances par ordre croissant
         % matrice contenant les distances avec l'indice
         % de l'image associe
-        distances_sorted = sortrows(distances, 1);
+        [distancesSorted, I] = sort(distances, 'ascend');
         
         % On parcours les 20 premieres images
         recall = [];
         tested = [];
-        size(tested)
         somme = 0;
         for i = 1:19;
-            disp(labelQuery)
-            disp(get_label(img_db_list{distances_sorted(i, 2)}))
-            if contains(get_label(img_db_list{distances_sorted(i, 2)}), labelQuery)
+            if contains(get_label(img_db_list{I(i)}), labelQuery)
                 somme = somme +1;
                 recall = [recall ; [somme / i]];
             else
                 recall = [recall ; [somme / i]];
             end         
-            tested(i,:) = distances_sorted(i, 2); 
+            tested(i) = I(i);
         end
         
         afficherRecallDetail(recall, labelQuery, imageQuery, tested, img_db);
